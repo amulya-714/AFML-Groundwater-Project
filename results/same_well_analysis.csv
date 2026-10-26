@@ -1,0 +1,3 @@
+extreme,rows,wells,MAE_m,median_abs_error_m,mean_groundwater_level_m,group
+False,2460,386,1.7234883539506907,1.1620655963943476,7.335707317073171,Below training 95th percentile
+True,1103,386,1.661178138892947,1.3491324182299185,4.21689936536718,Top 5% training rainfall
