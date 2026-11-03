@@ -1,0 +1,2 @@
+n_paired_wells,mean_mae_low_m,mean_mae_high_m,median_within_well_difference_m,mean_within_well_difference_m,fraction_wells_higher_error_at_high_novelty,wilcoxon_statistic,wilcoxon_one_sided_p_value
+1643,1.830912586992857,2.2685740988661256,0.3286391888666911,0.43766151187326824,0.6293365794278758,896568.0,6.18434698530631e-31

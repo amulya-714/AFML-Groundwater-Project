@@ -1,0 +1,13 @@
+test_group,model,n_observations,mean_support_distance,median_support_distance
+All test observations,Full model,14863,0.2254025566850687,0.18292301609183975
+All test observations,Extreme-removed model,14863,0.2332493908832689,0.18292301609183975
+All test observations,Matched-control model,14863,0.2259798383044118,0.18364394653559668
+Familiar,Full model,13082,0.1756802872467165,0.16894227972397885
+Familiar,Extreme-removed model,13082,0.17568219047764147,0.16894227972397885
+Familiar,Matched-control model,13082,0.17620971946997355,0.1693844345874388
+Poorly represented,Full model,1090,0.4235597206940347,0.411350772402027
+Poorly represented,Extreme-removed model,1090,0.43110159327678504,0.4126742583031997
+Poorly represented,Matched-control model,1090,0.42480400807925267,0.4129377938727302
+Extreme novelty,Full model,691,0.8541658273402799,0.7581202367045796
+Extreme novelty,Extreme-removed model,691,1.0110138121531471,0.8552657302976501
+Extreme novelty,Matched-control model,691,0.8545968419766907,0.7581202367045796

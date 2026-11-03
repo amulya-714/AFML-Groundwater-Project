@@ -1,0 +1,2 @@
+n_paired_wells,n_error_increased,n_error_decreased,n_unchanged,mean_difference_m,median_difference_m,standard_deviation_m,sign_test_p_value
+1516,833,683,0,0.41558648429827344,0.1480909999491239,2.331573321132619,6.415286408336636e-05

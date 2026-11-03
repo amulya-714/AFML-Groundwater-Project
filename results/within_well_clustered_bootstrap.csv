@@ -1,0 +1,2 @@
+n_matched_pairs,n_wells,mean_MAE_2018_m,mean_MAE_2020_m,mean_error_increase_m,bootstrap_CI_lower_m,bootstrap_CI_upper_m,fraction_bootstrap_estimates_positive,fraction_wells_with_increased_error,n_bootstraps
+2077,1311,1.2619034414787402,1.7681760833299616,0.5062726418512214,0.4099760898932346,0.6049845568595533,1.0,0.6209000762776506,5000

@@ -1,0 +1,2 @@
+n_paired_wells,mean_MAE_2018_m,mean_MAE_2020_m,mean_paired_difference_m,median_paired_difference_m,fraction_wells_with_increased_error,bootstrap_95CI_lower_m,bootstrap_95CI_upper_m,wilcoxon_statistic,wilcoxon_one_sided_p_value
+1516,1.7122710557654108,2.127857540063684,0.41558648429827344,0.14809099994912395,0.5494722955145118,0.29760172649647026,0.5315112159737827,689359.0,9.637618375040649e-12
