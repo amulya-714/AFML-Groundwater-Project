@@ -1,0 +1,7 @@
+group,n_obs,n_wells,MAE_m,RMSE_m,analysis
+Familiar (5th-95th bounds),13133,1792,2.0011191043743346,3.531211034710354,familiar_unfamiliar
+Unfamiliar (5th-95th bounds),1730,827,1.9062201430513523,3.231819568326517,familiar_unfamiliar
+Familiar (1st-99th bounds),14314,1795,2.0048316894766427,3.542019243423434,familiar_unfamiliar
+Unfamiliar (1st-99th bounds),549,353,1.6052773079386229,2.023786389702245,familiar_unfamiliar
+Below 95th pctile rainfall,13758,1793,2.0163831077777785,3.5845640669447962,high_rainfall
+High rainfall (≥95th pctile),1105,388,1.662497057393929,2.138348649051041,high_rainfall

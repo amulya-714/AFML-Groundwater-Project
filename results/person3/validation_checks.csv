@@ -1,0 +1,13 @@
+check,value,pass
+duplicate well-date pairs in predictions,0,True
+missing RF predictions,0,True
+missing persistence predictions,0,True
+all prediction dates in test window,True,True
+no training dates in prediction file,0,True
+test rows with no matching prediction,0,True
+actual GWL matches between sources,max_diff=0.00e+00,True
+training-test observation overlap,0,True
+metric agreement Persistence baseline MAE_m,diff=0.00e+00,True
+metric agreement Persistence baseline RMSE_m,diff=0.00e+00,True
+metric agreement Random Forest MAE_m,diff=0.00e+00,True
+metric agreement Random Forest RMSE_m,diff=0.00e+00,True

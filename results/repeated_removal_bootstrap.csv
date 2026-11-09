@@ -1,0 +1,2 @@
+comparison,mean_diff_m,std_diff_m,ci_lo_m,ci_hi_m,n_seeds,boot_reps,ci_includes_zero
+Extreme-removed minus Full (B-A),0.015607400193730104,0.0019553435892757974,0.014357285534150244,0.016852018208168427,10,2000,False

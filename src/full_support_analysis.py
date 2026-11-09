@@ -2,7 +2,8 @@ import pandas as pd
 import numpy as np
 from pathlib import Path
 
-data = pd.read_csv("data/processed/groundwater_rainfall_features_qc.csv")
+data = pd.read_csv("data/processed/groundwater_rainfall_features_qc.csv",
+                   parse_dates=["observation_date"])
 pred = pd.read_csv("results/baseline_predictions.csv")
 
 data["well_id"] = (
@@ -10,7 +11,8 @@ data["well_id"] = (
     data["Latitude"].astype(str) + "_" +
     data["Longitude"].astype(str)
 )
-data["date"] = pd.to_datetime(data["Data Acquisition Time"], dayfirst=True, errors="coerce")
+# Use pre-processed observation_date column (consistent with baseline_model.py)
+data["date"] = data["observation_date"]
 data = data.sort_values(["well_id", "date"])
 data["previous_gwl"] = data.groupby("well_id")[
     "Groundwater Level Quarterly Manual (meter)"

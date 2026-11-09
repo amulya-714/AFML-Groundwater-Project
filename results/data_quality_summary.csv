@@ -1,0 +1,12 @@
+check,count,pct
+missing_target_values,0,0.000%
+missing_rainfall_30d_mm,746,0.712%
+missing_rainfall_90d_mm,746,0.712%
+duplicate_well_date_keys,0,0.000%
+invalid_latitude,0,0%
+invalid_longitude,0,0%
+negative_gwl_values,57,0.054%
+gwl_above_50m,256,0.244%
+govt_l_v_polytechnic_readings,9,"max=111.51m, dates=2015-2019"
+qc_suspicious_rainfall_30d,8,0.0076%
+qc_suspicious_rainfall_90d,16,0.0153%
