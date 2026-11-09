@@ -1,0 +1,2 @@
+n_eligible_wells,mean_paired_diff_m,median_paired_diff_m,frac_wells_higher_error_in_high_rain,boot_ci_lo_m,boot_ci_hi_m,boot_reps,ci_includes_zero
+386,-0.041152820987673595,-0.03282267354636026,0.4896373056994819,-0.16753952962448565,0.07986973851764152,2000,True

@@ -1,0 +1,78 @@
+task,check,result,status,detail
+T1,N_BOOT documented in CSV,[2000],PASS,
+T1,RANDOM_SEED=42 used throughout,RANDOM_SEED=42 in script header,PASS,"Seeds: rng=42, rng2=43, rng3=44, rng4=45 for independent quantities"
+T1,Well resampling uses replace=True,Confirmed in paired_diff_bootstrap and group resamplers,PASS,"All bootstrap loops call rng.choice(..., replace=True)"
+T1,Same-well pairing: per-well means computed before differencing,386 wells with both conditions,PASS,"Bootstrap resamples these well-level differences, not raw observations"
+T1,Estimand for qty 1 (RF–Pers): avg-of-well-mean-differences,Matched: paired_diff on aligned well MAEs,PASS,
+T1,Estimand for qty 2a (Unfam–Fam ORIGINAL): independent group resampling — PRESERVED,Preserved as reference; superseded by corrected qty 2b,PASS,Original result kept in CSV for comparison. Superseded by corrected paired version.
+T1,Estimand for qty 2b (Unfam–Fam CORRECTED): paired within-well cluster bootstrap,Only 824 wells with obs in BOTH groups; per-well diff bootstrapped,PASS,CORRECTION APPLIED: resamples per-well paired differences from eligible wells only. This correctly accounts for within-well correlation and avoids treating the same well as independent in the two groups.
+T1,Estimand for qty 3 (HighRain–Normal): cross-group avg-of-well-means,Independent group resampling of per-well MAEs,PASS,High-rain and normal groups are disjoint by definition for each well (a well is in one group if it has obs with rainfall >= cutoff). Wells with obs in both conditions appear in BOTH arrays — this is the unpaired comparison. Qty 4 is the paired one.
+T1,Estimand for qty 4 (same-well paired): avg of within-well differences,Correctly paired: only wells with both conditions included,PASS,
+T1,Independent CI verification: RF–Pers (seed 999),"point=-0.6361 CI=[-0.7312,-0.5582] vs reported point=-0.6361 CI=[-0.7282,-0.5618]",PASS,Bootstrap variability: CIs may differ by up to 0.05m across seeds
+T1,Independent CI verification: same-well paired (seed 1000),"point=-0.0412 CI=[-0.1682,0.0786] vs reported point=-0.0412 CI=[-0.1688,0.0796]",PASS,Both CIs include zero → conclusion is consistent across seeds
+T1,Independent CI verification: Unfam–Fam CORRECTED paired (seed 1001),"point=0.1864 CI=[0.0724,0.3034] vs reported point=0.1864 CI=[0.0678,0.3066]",PASS,Eligible wells=824. CI excludes zero: True
+T1,Eligible wells for corrected Unfam–Fam,824 wells (obs in both familiar and unfamiliar),PASS,Expected 824 from exploratory analysis
+T1,CI uses 2.5/97.5 percentiles (95% two-sided),"np.percentile(boot_s, [2.5, 97.5])",PASS,
+T2,High-rainfall threshold from training only,1219.18 mm (training 90d 95th pctile),PASS,train_raw = df[observation_date < 2018-01-01]
+T2,Groups defined from training thresholds applied to test features,rainfall_90d_mm >= train_cutoff — no test-set leakage,PASS,Threshold derived purely from train_raw distribution
+T2,Familiar + Unfamiliar = total test rows (no overlap/gap),13133 + 1730 = 14863 vs 14863,PASS,
+T2,High-rainfall group counts sum to total,1105 + 13758 = 14863 vs 14863,PASS,
+T2,Well count for 'Familiar (5th-95th bounds)',"reported=1792, recomputed=1792",PASS,
+T2,Well count for 'High rainfall (≥95th pctile)',"reported=388, recomputed=388",PASS,
+T2,Same-well eligible well count,"reported=386, recomputed=386",PASS,
+T2,Same-well analysis: all eligible wells have obs in both conditions,386 wells have both; eligible count = 386,PASS,
+T2,Diagnose unpaired/paired discrepancy: composition of groups,"Normal-only wells: n=1407, MAE=2.3814m | Paired normal: n=386, MAE=1.7285m",INFO,"If normal-only wells have higher MAE than paired-normal wells, the unpaired 'normal' group average is pulled up by high-error wells that never experience high rainfall -> makes unpaired diff look larger (more negative)."
+T2,High-rain obs per well,"min=1, median=2",PASS,Wells with single high-rain obs: per-well mean equals that single obs value. This increases variance in the per-well distribution.
+T3,QC flag location: qc_suspicious_rainfall_30d,"total=8, train=8, test=0",PASS,CONFIRMED: All flagged observations are in the training period
+T3,QC flag location: qc_suspicious_rainfall_90d,"total=16, train=16, test=0",PASS,CONFIRMED: All flagged observations are in the training period
+T3,Sensitivity analysis type: evaluation-filter vs retrain,EVALUATION-FILTER ONLY — predictions are not recalculated,WARN,"The sensitivity script filters test observations for evaluation. It does NOT exclude flagged rows from training and retrain the model. These are different experiments. Because zero test-period rows are flagged, both experiments produce identical test metrics for this dataset. The distinction should be explicit in the report."
+T3,Why test metrics are unchanged under evaluation-filter,"Zero test-period rows have any QC flag (False for all 14,863 test rows)",PASS,Filtering on a flag that is universally False leaves the test set unchanged. This is not a data quality problem — it confirms the test period has no suspicious rainfall observations.
+T3,Retrain sensitivity: ΔMAE after excluding 16 flagged training rows,ΔMAE=-0.000111 m (16 rows removed from 87426 training rows),PASS,Effect negligible: flagged rows are < 0.02% of training data
+T4,Date column in baseline_model.py,"obs_date=True, acq_time=False",PASS,
+T4,Date column in support_analysis.py,"obs_date=True, acq_time=False",PASS,
+T4,Date column in full_support_analysis.py,"obs_date=True, acq_time=False",PASS,
+T4,Date column in paired_gwl_support.py,"obs_date=True, acq_time=False",PASS,
+T4,Date column in same_well_analysis.py,"obs_date=True, acq_time=False",PASS,
+T4,Date column in paired_bootstrap.py,"obs_date=True, acq_time=False",PASS,
+T4,Date column in person3_robustness_validation.py,"obs_date=True, acq_time=False",PASS,
+T4,Date column in person3_grouped_evaluation.py,"obs_date=True, acq_time=False",PASS,
+T4,Date column in person3_bootstrap_validation.py,"obs_date=True, acq_time=False",PASS,
+T4,Date column in person3_rainfall_sensitivity.py,"obs_date=True, acq_time=False",PASS,
+T4,TRAIN_CUT=2018-01-01 in person3_robustness_validation.py,True,PASS,
+T4,TRAIN_CUT=2018-01-01 in person3_grouped_evaluation.py,True,PASS,
+T4,TRAIN_CUT=2018-01-01 in person3_bootstrap_validation.py,True,PASS,
+T4,TRAIN_CUT=2018-01-01 in person3_rainfall_sensitivity.py,True,PASS,
+T4,observation_date vs Data Acquisition Time split agreement,"same split side=104781, different=0, acq_time NaT=0",PASS,"If diff > 0, the two date columns disagree on training/test assignment for some rows"
+T5,Report metric: Persistence MAE,CSV=2.601288 vs report=2.601288,PASS,
+T5,Report metric: Persistence RMSE,CSV=4.438926 vs report=4.438926,PASS,
+T5,Report metric: RF MAE,CSV=1.990073 vs report=1.990073,PASS,
+T5,Report metric: RF RMSE,CSV=3.497681 vs report=3.497681,PASS,
+T5,Report metric: RF R2,CSV=0.769041 vs report=0.769041,PASS,
+T5,Report group: Familiar 5-95 n_obs,"CSV=13133, report=13133",PASS,
+T5,Report group: Familiar 5-95 n_wells,"CSV=1792, report=1792",PASS,
+T5,Report group: Familiar 5-95 MAE,"CSV=2.0011, report=2.0011",PASS,
+T5,Report group: Unfamiliar 5-95 n_obs,"CSV=1730, report=1730",PASS,
+T5,Report group: Unfamiliar 5-95 n_wells,"CSV=827, report=827",PASS,
+T5,Report group: High rain n_obs,"CSV=1105, report=1105",PASS,
+T5,Report group: High rain n_wells,"CSV=388, report=388",PASS,
+T5,Report group: High rain MAE,"CSV=1.6625, report=1.6625",PASS,
+T5,Report group: Normal rain n_obs,"CSV=13758, report=13758",PASS,
+T5,Report group: Normal rain MAE,"CSV=2.0164, report=2.0164",PASS,
+T5,Same-well n_eligible_wells,"CSV=386, report=386",PASS,
+T5,Same-well mean_paired_diff,"CSV=-0.0412, report=-0.0412",PASS,
+T5,Same-well CI,"CSV=[-0.1675,0.0799], report=[-0.1675, 0.0799]",PASS,Bootstrap CI may vary slightly across re-runs due to random sampling
+T5,Bootstrap CI check: RF–Pers point,"CSV=-0.6361, report=-0.6361, diff=0.0000",PASS,Bootstrap values may differ slightly across seeds
+T5,Bootstrap CI check: RF–Pers CI lo,"CSV=-0.7282, report=-0.7282, diff=0.0000",PASS,Bootstrap values may differ slightly across seeds
+T5,Bootstrap CI check: RF–Pers CI hi,"CSV=-0.5618, report=-0.5618, diff=0.0000",PASS,Bootstrap values may differ slightly across seeds
+T5,Bootstrap CI check: Same-well point,"CSV=-0.0412, report=-0.0412, diff=0.0000",PASS,Bootstrap values may differ slightly across seeds
+T5,Bootstrap CI check: Same-well CI lo,"CSV=-0.1688, report=-0.1688, diff=0.0000",PASS,Bootstrap values may differ slightly across seeds
+T5,Bootstrap CI check: Same-well CI hi,"CSV=0.0796, report=0.0796, diff=0.0000",PASS,Bootstrap values may differ slightly across seeds
+T5,Bootstrap CI check: High-rain–Norm pt,"CSV=-0.5491, report=-0.5491, diff=0.0000",PASS,Bootstrap values may differ slightly across seeds
+T5,Bootstrap CI check: Unfam–Fam CORR pt,"CSV=0.1864, report=0.1864, diff=0.0000",PASS,Bootstrap values may differ slightly across seeds
+T5,Bootstrap CI check: Unfam–Fam CORR lo,"CSV=0.0678, report=0.0678, diff=0.0000",PASS,Bootstrap values may differ slightly across seeds
+T5,Bootstrap CI check: Unfam–Fam CORR hi,"CSV=0.3066, report=0.3066, diff=0.0000",PASS,Bootstrap values may differ slightly across seeds
+T5,Bootstrap CI check: Unfam–Fam ORIG pt,"CSV=-0.1523, report=-0.1523, diff=0.0000",PASS,Bootstrap values may differ slightly across seeds
+T5,Bootstrap CI check: GWL support CI lo,"CSV=-0.7161, report=-0.7161, diff=0.0000",PASS,Bootstrap values may differ slightly across seeds
+T5,Bootstrap CI check: GWL support CI hi,"CSV=1.4515, report=1.4515, diff=0.0000",PASS,Bootstrap values may differ slightly across seeds
+T5,QC sensitivity: Full test set n_obs,"CSV=14863, report=14,863",PASS,
+T5,QC sensitivity: Full test MAE,"CSV=1.9901, report=1.9901",PASS,

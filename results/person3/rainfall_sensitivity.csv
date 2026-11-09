@@ -1,0 +1,6 @@
+scenario,n_obs,n_wells,MAE_m,RMSE_m,R2,excluded_from_full
+Full test set,14863,1795,1.9900732049537084,3.4976810372483578,0.76904094924395,0
+Excl flagged qc_suspicious_rainfall_30d (flag==1),14863,1795,1.9900732049537084,3.4976810372483578,0.76904094924395,0
+Flagged only qc_suspicious_rainfall_30d (flag==1),0,0,,,,14863
+Excl flagged qc_suspicious_rainfall_90d (flag==1),14863,1795,1.9900732049537084,3.4976810372483578,0.76904094924395,0
+Flagged only qc_suspicious_rainfall_90d (flag==1),0,0,,,,14863

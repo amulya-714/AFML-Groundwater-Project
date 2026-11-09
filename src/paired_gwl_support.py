@@ -1,12 +1,12 @@
 import pandas as pd
 import numpy as np
 
-d = pd.read_csv("data/processed/groundwater_rainfall_features_qc.csv")
+d = pd.read_csv("data/processed/groundwater_rainfall_features_qc.csv",
+                parse_dates=["observation_date"])
 p = pd.read_csv("results/baseline_predictions.csv")
 
-d["date"] = pd.to_datetime(
-    d["Data Acquisition Time"], dayfirst=True, errors="coerce"
-)
+# Use pre-processed observation_date column (consistent with baseline_model.py)
+d["date"] = d["observation_date"]
 d["well_id"] = (
     d["Station"].astype(str) + "_" +
     d["Latitude"].astype(str) + "_" +
